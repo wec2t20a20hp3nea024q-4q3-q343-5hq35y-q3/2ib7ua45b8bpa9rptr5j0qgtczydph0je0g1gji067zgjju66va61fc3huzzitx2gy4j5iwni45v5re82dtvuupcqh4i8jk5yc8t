@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录 · Testing</title>
+    <title>Login · Testing</title>
     <link rel="stylesheet" href="./styles.css">
     <style>
         /* 登录页专用样式 */
@@ -86,27 +86,21 @@
 </head>
 <body>
     <div class="login-container">
-        <div class="login-title">🔐 登录</div>
-        <div class="login-sub">请输入您的账户信息</div>
+        <div class="login-title">Login Page</div>
+        <div class="login-sub">Input data</div>
 
         <form class="login-form" id="loginForm">
-            <label for="username">用户名</label>
-            <input type="text" id="username" name="username" placeholder="admin / chris / test" autocomplete="off" required>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="username" autocomplete="off" required>
 
-            <label for="password">密码</label>
-            <input type="password" id="password" name="password" placeholder="······" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="···..···" required>
 
-            <button type="submit" class="login-btn">登 录</button>
+            <button type="submit" class="login-btn">Login</button>
         </form>
 
         <div id="loginError" class="error-message"></div>
 
-        <div class="demo-hint">
-            <strong>演示账号</strong><br>
-            <code>admin / 123456</code> &nbsp; | &nbsp;
-            <code>chris / qwer1234</code> &nbsp; | &nbsp;
-            <code>test / test</code>
-        </div>
     </div>
 
     <script src="account.js"></script>
@@ -126,7 +120,6 @@
 
             if (validateCredentials(username, password)) {
                 setLoginStatus(username);
-                // 登录成功，跳转回主页
                 window.location.href = './index.html';
             } else {
                 errorDiv.textContent = '用户名或密码错误';
