@@ -10,7 +10,6 @@ const encryptedAccounts = [
     { usernameHex: "27001006", passwordHex: "27001006" },
 ];
 
-// 十六进制字符串转普通字符串（解密前预处理）
 function hexToString(hex) {
     let str = '';
     for (let i = 0; i < hex.length; i += 2) {
@@ -19,7 +18,6 @@ function hexToString(hex) {
     return str;
 }
 
-// XOR 解密函数（与 C++ 加密算法互逆）
 function decrypt(encryptedHex) {
     const encrypted = hexToString(encryptedHex);
     let plain = '';
@@ -30,7 +28,6 @@ function decrypt(encryptedHex) {
     return plain;
 }
 
-// 验证凭据：对输入的明文与存储的密文解密后比对
 function validateCredentials(username, password) {
     return encryptedAccounts.some(acc => {
         const storedUser = decrypt(acc.usernameHex);
@@ -39,12 +36,9 @@ function validateCredentials(username, password) {
     });
 }
 
-// 登录状态管理（存储加密后的用户名，防止查看）
 function setLoginStatus(username) {
-    // 简单加密用户名再存储（可复用上述加密函数）
     sessionStorage.setItem('logged_on', 'true');
-    // 这里也可以对 username 加密存储，但 getCurrentUser 需要解密
-    sessionStorage.setItem('currentUser', username); // 如需加密可自行添加
+    sessionStorage.setItem('currentUser', username);
 }
 
 function logout() {
