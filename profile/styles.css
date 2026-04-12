@@ -1,0 +1,189 @@
+/* 子页面独立样式 - 卡片宽度为全屏 3/4，并优化响应式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f0f7ff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #1e3a5f;
+    font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+}
+
+/* 头部样式（与主页一致） */
+.main-header {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    z-index: 1000;
+}
+
+.header-logo a {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    text-decoration: none;
+}
+
+.header-nav {
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+}
+
+.header-nav a {
+    text-decoration: none;
+    color: #1e3a5f;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.header-nav a:hover {
+    color: #2c7da0;
+}
+
+.clock {
+    flex: 0 0 auto;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.clock-time {
+    font-weight: 600;
+    color: #2c7da0;
+    font-size: 1rem;
+    display: inline-block;
+}
+
+.header-tool {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.header-tool span {
+    font-weight: 500;
+    color: #1e3a5f;
+}
+
+.header-tool a {
+    text-decoration: none;
+    color: #ff4e4e;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.header-tool a:hover {
+    color: #c0392b;
+}
+
+/* 主容器：居中，卡片宽度为视口的 3/4 */
+.subpage-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.subpage-card {
+    width: 75%;                /* 全屏宽度的 3/4 */
+    max-width: 1000px;        /* 限制最大宽度，防止过宽 */
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 2rem 2.5rem;
+    text-align: left;
+    border-top: 5px solid #2c7da0;
+    transition: all 0.3s;
+}
+
+.subpage-card h2 {
+    font-size: 1.8rem;
+    color: #1e3a5f;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.profile-info {
+    margin: 1.5rem 0;
+}
+
+.info-row {
+    display: flex;
+    align-items: baseline;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.info-label {
+    font-weight: 600;
+    width: 100px;
+    color: #2c7da0;
+}
+
+.info-value {
+    flex: 1;
+    color: #2d3748;
+    font-size: 1rem;
+    word-break: break-word;
+}
+
+.btn-update {
+    background: #2c7da0;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.btn-update:hover {
+    background: #1f5875;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(44, 125, 160, 0.3);
+}
+
+/* 页脚 */
+.main-footer {
+    background: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+    color: #6c757d;
+    border-top: 1px solid #dae8f0;
+}
+
+/* 响应式：小屏幕时卡片宽度占 90% */
+@media (max-width: 768px) {
+    .subpage-card {
+        width: 90%;
+        padding: 1.5rem;
+    }
+    .info-label {
+        width: 80px;
+    }
+    .main-header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    .header-nav {
+        justify-content: center;
+    }
+}

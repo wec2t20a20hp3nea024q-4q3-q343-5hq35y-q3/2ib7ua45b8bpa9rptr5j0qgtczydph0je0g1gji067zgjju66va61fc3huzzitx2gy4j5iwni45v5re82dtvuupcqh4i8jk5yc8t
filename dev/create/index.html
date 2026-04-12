@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>批量导入 · Testing</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="../../account.js"></script>
+    <script src="../../questions.js"></script>
+    <script>
+        if (!logged_on()) window.location.replace('../../login.html');
+    </script>
+    <style>
+        .bulk-textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 1rem;
+            font-family: monospace;
+            border: 1px solid #d0ddee;
+            border-radius: 16px;
+            background: #fafcff;
+            resize: vertical;
+        }
+        .preview-box {
+            background: #f0f4fa;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin: 1.5rem 0;
+        }
+        .example-code {
+            background: #1e2b3c;
+            color: #e6e6e6;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-logo">Testing</div>
+        <nav class="header-nav">
+            <a href="../../index.html">主页</a>
+            <a href="../../oj/index.html">题库</a>
+            <a href="./index.html">批量导入</a>
+        </nav>
+        <div class="clock"><span class="clock-time"></span></div>
+        <div class="header-tool" style="display: flex; gap: 1rem;">
+            <span id="currentUserDisplay"></span>
+            <a href="#" id="logoutBtn" style="color:#1e3a5f;">登出</a>
+        </div>
+    </header>
+
+    <div class="subpage-container">
+        <div class="subpage-card" style="max-width: 900px;">
+            <h1>📤 批量导入题目</h1>
+            <p>每道题使用 <code>\\</code> 包裹，内部用 <code>~</code> 分隔字段。</p>
+            
+            <div class="preview-box">
+                <strong>格式示例：</strong>
+                <div class="example-code">
+\\<br>
+&lt;p&gt;1 + 1 = ?&lt;/p&gt;<br>
+~["1","2","3","4"]<br>
+~B<br>
+~&lt;p&gt;1+1=2，故选 B。&lt;/p&gt;<br>
+\\
+                </div>
+                <p style="margin-top:0.8rem;"><small>说明：字段顺序为 题目描述(HTML) ~ 选项(JSON数组，无选项写null) ~ 答案(A/B/C) ~ 解析(HTML)</small></p>
+            </div>
+
+            <form id="bulkForm">
+                <label>选择目标科目 & 单元</label>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                    <select id="bulkSubject" style="flex:1; padding:0.8rem; border-radius:30px; border:1px solid #d0ddee;"></select>
+                    <select id="bulkTopic" style="flex:1; padding:0.8rem; border-radius:30px; border:1px solid #d0ddee;"></select>
+                </div>
+
+                <label>粘贴题目数据</label>
+                <textarea id="bulkInput" class="bulk-textarea" placeholder="\\ ... \\"></textarea>
+
+                <button type="submit" class="login-btn" style="margin-top:2rem;">导入题目</button>
+            </form>
+
+            <div id="importResult" style="margin-top:1.5rem;"></div>
+            <hr style="margin:2rem 0;">
+            <a href="../../oj/index.html" class="page-link">← 返回题库浏览</a>
+        </div>
+    </div>
+
+    <script src="../../script.js"></script>
+    <script>
+        // 用户信息
+        document.getElementById('currentUserDisplay').textContent = get_cur_user() || '未知';
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            logout();
+            window.location.href = '../../login.html';
+        });
+
+        // 填充科目下拉
+        const subSelect = document.getElementById('bulkSubject');
+        const topSelect = document.getElementById('bulkTopic');
+        
+        subjects.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s.id;
+            opt.textContent = s.name;
+            subSelect.appendChild(opt);
+        });
+
+        function updateBulkTopics() {
+            const subId = subSelect.value;
+            topSelect.innerHTML = '';
+            getTopicsBySubjectId(subId).forEach(t => {
+                const opt = document.createElement('option');
+                opt.value = t.id;
+                opt.textContent = t.name;
+                topSelect.appendChild(opt);
+            });
+        }
+        subSelect.addEventListener('change', updateBulkTopics);
+        updateBulkTopics(); // 初始化
+
+        // 表单提交
+        document.getElementById('bulkForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const subjectId = subSelect.value;
+            const topicId = topSelect.value;
+            const rawText = document.getElementById('bulkInput').value;
+            
+            const parsed = parseBulkInput(rawText);
+            if (parsed.length === 0) {
+                document.getElementById('importResult').innerHTML = '<p style="color:#c0392b;">未解析到任何有效题目，请检查格式。</p>';
+                return;
+            }
+            
+            const count = addBulkQuestions(subjectId, topicId, parsed);
+            document.getElementById('importResult').innerHTML = `<p style="color:#1e7a5f;">✅ 成功导入 ${count} 道题目！</p>`;
+            document.getElementById('bulkInput').value = '';
+        });
+    </script>
+</body>
+</html>

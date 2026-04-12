@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>题目管理 · Testing</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="../../account.js"></script>
+    <script>
+        if (typeof logged_on === 'function' && !logged_on()) {
+            window.location.replace('../../login.html');
+        }
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-logo"><a href="../../index.html">Testing</a></div>
+        <nav class="header-nav">
+            <a href="../index.html">Feature 1</a>
+            <a href="../page1.html">Feature 2</a>
+            <a href="../page2.html">Feature 3</a>
+            <a href="#"></a>
+        </nav>
+        <div class="clock">
+            <span class="clock-time"></span>
+        </div>
+        <div class="header-tool">
+            <span id="currentUserDisplay"></span>
+            <a href="#" id="logoutBtn">登出</a>
+        </div>
+    </header>
+
+    <div class="manage-container">
+        <div class="manage-header">
+            <h1>📚 题目管理</h1>
+            <div class="manage-actions">
+                <button id="addQuestionBtn" class="btn-primary">+ 添加题目</button>
+                <button id="toggleModeBtn" class="btn-secondary">切换到简洁模式</button>
+                <button id="saveToLocalBtn" class="btn-secondary">💾 保存到本地</button>
+            </div>
+        </div>
+
+        <!-- 卡片列表容器 -->
+        <div id="questionsList" class="questions-list"></div>
+    </div>
+
+    <!-- 添加/编辑题目的模态框 -->
+    <div id="questionModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">添加题目</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="questionForm">
+                <div class="form-group">
+                    <label>题型 *</label>
+                    <select id="type" required>
+                        <option value="mc">Multiple Choice (MC)</option>
+                        <option value="lq">Long Question (LQ)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>科目 *</label>
+                    <input type="text" id="subject" required>
+                </div>
+                <div class="form-group">
+                    <label>主题 *</label>
+                    <input type="text" id="topic" required>
+                </div>
+                <div class="form-group">
+                    <label>来源 *</label>
+                    <input type="text" id="source" required>
+                </div>
+                <div class="form-group">
+                    <label>分值 *</label>
+                    <input type="number" id="point" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>题目内容 *</label>
+                    <textarea id="statement" rows="4" required></textarea>
+                </div>
+                <div id="mcFields" class="mc-fields">
+                    <div class="form-group">
+                        <label>选项（每行一个）</label>
+                        <textarea id="choice" rows="4" placeholder="选项A内容&#10;选项B内容&#10;选项C内容&#10;选项D内容"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>正确答案字母（A/B/C/D）</label>
+                        <input type="text" id="letter" maxlength="1" style="width: 80px;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>答案解释 *</label>
+                    <textarea id="ans" rows="3" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancelModalBtn" class="btn-secondary">取消</button>
+                    <button type="submit" class="btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../../new_oj/database.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // 时钟与用户显示（复用）
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const clockSpan = document.querySelector('.clock-time');
+            if (clockSpan) clockSpan.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        function displayCurrentUser() {
+            let username = null;
+            if (typeof get_cur_user === 'function') username = get_cur_user();
+            else if (typeof getCurrentUser === 'function') username = getCurrentUser();
+            else username = localStorage.getItem('currentUser');
+            const userSpan = document.getElementById('currentUserDisplay');
+            if (userSpan) userSpan.textContent = username || '访客';
+        }
+        displayCurrentUser();
+
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (typeof logout === 'function') logout();
+                window.location.href = '../login.html';
+            });
+        }
+    </script>
+</body>
+</html>

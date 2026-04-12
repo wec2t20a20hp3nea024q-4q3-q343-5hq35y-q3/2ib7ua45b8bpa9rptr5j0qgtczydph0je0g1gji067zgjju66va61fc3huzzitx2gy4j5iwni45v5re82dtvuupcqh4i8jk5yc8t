@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing</title>
+    <script src="account.js"></script>
+    <script>
+      if(!logged_on()){
+        window.location.replace("./login.html");
+      }
+    </script>
+    
+    <!-- 路径示意：./folder/index.html 中引用 ../style.css (CSS与HTML分离) -->
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- 统一的 header —— 所有子页面必须包含相同结构 -->
+    <header class="main-header">
+        <div class="header-logo">Testing</div>
+        <nav class="header-nav">
+            <a href="./index.html">Feature 1</a>
+            <a href="./page1.html">Feature 2</a>
+            <a href="./page2.html">Feature 3</a>
+            <a href="#"></a>
+        </nav>
+        <div class="clock">
+            <span class="clock-time"></span>
+        </div>
+        <div class="header-tool" style="display: flex; gap: 1rem; align-items: center;">
+        <a href="./profile/index.html" style="color:#1e3a5f; text-decoration: none;"><span id="currentUserDisplay"></span></a>
+        <a href="#" id="logoutBtn" style="color:#ff4e4e; text-decoration: none;">Logout</a>
+        </div>
+    </header>
+
+    <!-- 主页特有布局：侧边栏(左) + 主内容(中) + 右边栏表格(右) -->
+    <div class="home-layout">
+        <!-- 左侧边栏：包含多个分页（导航/选项卡风格） -->
+        <aside class="sidebar-left">
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Interface</div>
+                <ul class="sidebar-pages">
+                    <!-- 多个分页 —— 每一项均以“文字”代替 -->
+                    <li><a href="./oj/index.html" class="page-link">Questions</a></li>
+                    <li><a href="./games/index.html" class="page-link">Games</a></li>
+                    <li><a href="./new_oj/index.html" class="page-link">New Online Judge!</a></li>
+                    <li><a href="./recite/index.html" class="page-link">Recite Book Content</a></li>
+                    <li><a href="#" class="page-link">N/A</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">Developer</div>
+                <ul class="sidebar-pages">
+                    <li><a href="./dev/create/index.html" class="page-link">Database Creator</a></li>
+                    <li><a href="./dev/paper/index.html" class="page-link">Paper Maker</a></li>
+                    <li><a href="./dev/terminal/index.html" class="page-link">Question bank terminal</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- 中央主内容区域（占位，所有文字均为“文字”） -->
+        <main class="main-content">
+            <div class="content-card">
+                <h2>N/A</h2>
+                <p>...</p>
+                <p>...</p>
+            </div>
+            <div class="content-card">
+                <h3>...</h3>
+                <div class="placeholder-list">
+                    <span>...</span>
+                    <span>...</span>
+                    <span>...</span>
+                    <span>...</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- 右侧边栏：以表格形式显示网站数据 -->
+        <aside class="sidebar-right">
+            <div class="table-header">
+                <h3>Stat</h3>
+                <!-- <span>文字</span> -->
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total Questions: </td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>Version: </td>
+                        <td>0.0</td>
+                    </tr>
+                    <tr>
+                        <td>Contributers: </td>
+                        <td>Chris Li</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="table-footer">
+                <span>文字</span>
+                <span>文字</span>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 简单的页脚（文字占位） -->
+    <footer class="main-footer">
+        <span>,,,</span> · <span>...</span> · <span></span>
+    </footer>
+</body>
+<script src="script.js"></script>
+</html>

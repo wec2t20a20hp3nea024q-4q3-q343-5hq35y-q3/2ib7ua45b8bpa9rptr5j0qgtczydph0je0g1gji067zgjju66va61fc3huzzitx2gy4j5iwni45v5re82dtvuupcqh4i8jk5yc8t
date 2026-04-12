@@ -1,0 +1,255 @@
+/* manage.css - 题目管理页面专用样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f0f7ff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* 平话字体（苹方）优先，兼容其他系统 */
+    font-family: "PingFang SC", "苹方", "Microsoft YaHei", "Segoe UI", Roboto, system-ui, sans-serif;
+}
+
+.manage-container {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.manage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.manage-header h1 {
+    color: #1e3a5f;
+    font-size: 1.8rem;
+}
+
+.manage-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: #2c7da0;
+    color: white;
+}
+.btn-primary:hover {
+    background: #1f5875;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #eef2f8;
+    color: #1e3a5f;
+    border: 1px solid #d0dce8;
+}
+.btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+/* 卡片列表 */
+.questions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.question-card {
+    background: white;
+    border-radius: 0.8rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    border-left: 6px solid #2c7da0;
+    transition: all 0.2s;
+}
+
+.question-card.mc {
+    border-left-color: #28a745;
+}
+.question-card.lq {
+    border-left-color: #ffc107;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.card-meta {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.meta-tag {
+    background: #eef2f8;
+    padding: 0.2rem 0.6rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #1e3a5f;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.card-actions button {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    transition: 0.2s;
+}
+.card-actions button:hover {
+    background: #e2e8f0;
+}
+.edit-btn { color: #2c7da0; }
+.delete-btn { color: #dc3545; }
+.move-up-btn, .move-down-btn { color: #6c757d; }
+
+.statement {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0.8rem 0;
+    color: #1e3a5f;
+}
+
+/* 简洁模式隐藏部分属性 */
+.compact-mode .meta-tag:not(.type-tag),
+.compact-mode .question-points,
+.compact-mode .answer-text,
+.compact-mode .answer-label {
+    display: none;
+}
+.compact-mode .options {
+    margin-top: 0.5rem;
+}
+.compact-mode .option-text {
+    font-size: 0.9rem;
+}
+
+.options {
+    margin: 0.8rem 0;
+    padding-left: 1rem;
+}
+.option {
+    margin: 0.3rem 0;
+}
+.answer-preview {
+    background: #f8f9fa;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #2c7da0;
+}
+
+/* 模态框 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+.modal.hidden {
+    display: none;
+}
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 700px;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #dae8f0;
+}
+.modal-header h3 {
+    margin: 0;
+}
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.form-group {
+    margin: 1rem 1.5rem;
+}
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #d0dce8;
+    border-radius: 0.3rem;
+}
+.mc-fields {
+    border-top: 1px solid #e2e8f0;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+}
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #dae8f0;
+}
+
+@media (max-width: 768px) {
+    .manage-container {
+        padding: 1rem;
+    }
+    .manage-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .manage-actions {
+        justify-content: space-between;
+    }
+}

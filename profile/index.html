@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户资料 · Testing</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="../account.js"></script>
+    <script>
+        if (typeof logged_on === 'function' && !logged_on()) {
+            window.location.replace('../login.html');
+        }
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-logo"><a href="../index.html">Testing</a></div>
+        <nav class="header-nav">
+            <a href="../index.html">Feature 1</a>
+            <a href="../page1.html">Feature 2</a>
+            <a href="../page2.html">Feature 3</a>
+            <a href="#"></a>
+        </nav>
+        <div class="clock">
+            <span class="clock-time"></span>
+        </div>
+        <div class="header-tool">
+            <span id="currentUserDisplay"></span>
+            <a href="#" id="logoutBtn">登出</a>
+        </div>
+    </header>
+
+    <div class="subpage-container">
+        <div class="subpage-card">
+            <h2>用户资料</h2>
+            <div class="profile-info">
+                <div class="info-row">
+                    <span class="info-label">用户名：</span>
+                    <span class="info-value" id="profileUsername">加载中...</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">电子邮箱：</span>
+                    <span class="info-value" id="profileEmail">未提供</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">注册时间：</span>
+                    <span class="info-value" id="profileRegDate">未提供</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">上次登录：</span>
+                    <span class="info-value" id="profileLastLogin">未提供</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">OJ 总分：</span>
+                    <span class="info-value" id="profileOjScore">0</span>
+                </div>
+            </div>
+            <button id="updateProfileBtn" class="btn-update">更新资料</button>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <span>Testing</span> · <span>v1.0</span> · <span>用户中心</span>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
