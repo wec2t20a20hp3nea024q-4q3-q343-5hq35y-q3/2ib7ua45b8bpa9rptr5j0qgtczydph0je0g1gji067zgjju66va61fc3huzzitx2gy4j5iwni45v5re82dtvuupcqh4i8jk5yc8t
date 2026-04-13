@@ -364,8 +364,8 @@ function moveEmpty(dx, dy) {
         if (gameWon) return;
         let moved = false;
         switch(key) {
-            case 'w': moved = moveEmpty(-1, 0); break;   // 上
-            case 's': moved = moveEmpty(1, 0); break;    // 下
+            case 's': moved = moveEmpty(-1, 0); break;   // 上
+            case 'w': moved = moveEmpty(1, 0); break;    // 下
             case 'a': moved = moveEmpty(0, -1); break;   // 左
             case 'd': moved = moveEmpty(0, 1); break;    // 右
             default: return;
