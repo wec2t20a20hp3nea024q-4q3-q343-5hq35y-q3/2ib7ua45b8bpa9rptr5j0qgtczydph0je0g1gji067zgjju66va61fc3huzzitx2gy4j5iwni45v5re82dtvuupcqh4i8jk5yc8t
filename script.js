@@ -33,7 +33,7 @@ const gamesList = [
     },
     {
       name:"Acid-Base neutralizing simulator",
-      description:"Study purpost",
+      description:"Study purpose",
       url:"./games/chem/index.html"
     }
     // 您可以在此继续添加更多自己的游戏，格式同上
